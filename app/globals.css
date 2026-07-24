@@ -1,0 +1,136 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme inline {
+  --color-background: #ffffff;
+  --color-foreground: #171717;
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 50%, #eef2ff 100%);
+  color: #171717;
+  font-family: var(--font-sans, system-ui, -apple-system, sans-serif);
+}
+
+/* 自定义滚动条 */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #c7d2fe;
+  border-radius: 2px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #a5b4fc;
+}
+
+/* 打字机光标动画 */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+.typing-cursor::after {
+  content: '|';
+  animation: blink 0.8s infinite;
+  color: #818cf8;
+  font-weight: 700;
+}
+
+/* 淡入动画 */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* 消息气泡出现动画 */
+@keyframes messageIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-message-in {
+  animation: messageIn 0.25s ease-out;
+}
+
+/* 玻璃拟态 */
+.glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(99, 102, 241, 0.08);
+}
+
+.glass-strong {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(99, 102, 241, 0.12);
+}
+
+/* 发光按钮 */
+.btn-glow {
+  box-shadow: 0 0 20px rgba(99, 102, 241, 0.25), 0 4px 12px rgba(99, 102, 241, 0.15);
+}
+.btn-glow:hover {
+  box-shadow: 0 0 30px rgba(99, 102, 241, 0.4), 0 6px 16px rgba(99, 102, 241, 0.25);
+}
+
+/* 粒子漂浮动画 */
+@keyframes particleFloat {
+  0% {
+    transform: translateY(0) translateX(0);
+    opacity: 0;
+  }
+  5% {
+    opacity: var(--particle-opacity, 0.5);
+  }
+  95% {
+    opacity: var(--particle-opacity, 0.5);
+  }
+  100% {
+    transform: translateY(-120px) translateX(30px);
+    opacity: 0;
+  }
+}
+
+/* 极光流动动画 */
+@keyframes auroraFlow {
+  0% {
+    filter: hue-rotate(0deg) saturate(1);
+    transform: scale(1) translateY(0);
+  }
+  25% {
+    filter: hue-rotate(15deg) saturate(1.15);
+    transform: scale(1.05) translateY(-1%);
+  }
+  50% {
+    filter: hue-rotate(-10deg) saturate(1.05);
+    transform: scale(1.02) translateY(0.5%);
+  }
+  75% {
+    filter: hue-rotate(10deg) saturate(1.2);
+    transform: scale(1.04) translateY(-0.5%);
+  }
+  100% {
+    filter: hue-rotate(0deg) saturate(1);
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* 网格节点脉冲动画 */
+@keyframes nodePulse {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.8);
+  }
+}
