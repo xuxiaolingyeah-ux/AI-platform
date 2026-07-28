@@ -3,7 +3,7 @@ import './globals.css';
 import AppProviders from './providers';
 
 export const metadata: Metadata = {
-  title: 'Oceanus',
+  title: 'ceanus',
   description: '从想法到 PRD，一站式 AI 协作',
 };
 

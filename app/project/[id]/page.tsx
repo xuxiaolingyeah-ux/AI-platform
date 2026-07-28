@@ -93,20 +93,13 @@ export default function ProjectPage() {
     }
   }, [ready, chat.activeSessionId]);
 
-  // 当有新文件生成时，自动同步到归档树（仅归档区文件）
+  // 当有新文件生成时，自动同步到归档树
   useEffect(() => {
     const projectArchiveTree = fileTree.getProjectArchiveTree(projectId);
-    const projectCodeTree = fileTree.getProjectCodeTree(projectId);
     archiveFiles.forEach((file) => {
       const existsInArchiveTree = projectArchiveTree.some((n) => n.fileId === file.id);
-      const existsInCodeTree = projectCodeTree.some((n) => n.fileId === file.id);
-      if (!existsInArchiveTree && !existsInCodeTree) {
-        const isCode = file.name.endsWith('.html') || file.name.endsWith('.js') || file.name.endsWith('.css');
-        if (isCode) {
-          fileTree.addFileNode(null, file.name, file.id, 'code', projectId);
-        } else {
-          fileTree.addFileNode(null, file.name, file.id, 'archive', projectId);
-        }
+      if (!existsInArchiveTree) {
+        fileTree.addFileNode(null, file.name, file.id, 'archive', projectId);
       }
     });
   }, [archiveFiles, fileTree, projectId]);

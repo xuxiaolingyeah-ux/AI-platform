@@ -1,9 +1,9 @@
 'use client';
 
 import { useState, useRef, useCallback } from 'react';
-import type { ProjectFile, FileTreeNode as FileTreeNodeType } from '@/lib/types';
+import type { ProjectFile } from '@/lib/types';
 import { useFileTree } from '@/lib/contexts/FileTreeContext';
-import { FileText, Code, ChevronLeft, ChevronRight, Archive, FileEdit, FolderArchive, Download, CheckSquare, Square } from 'lucide-react';
+import { FileText, ChevronLeft, ChevronRight, Archive, FileEdit, FolderArchive, Download, CheckSquare, Square } from 'lucide-react';
 import FileTree from './FileTree';
 
 interface FilePanelProps {
@@ -19,8 +19,6 @@ interface FilePanelProps {
   onArchiveFile: (fileId: string) => void;
 }
 
-type TabType = 'doc' | 'code';
-
 export default function FilePanel({
   projectId,
   files,
@@ -33,14 +31,12 @@ export default function FilePanel({
   onBatchDownload,
   onArchiveFile,
 }: FilePanelProps) {
-  const [activeTab, setActiveTab] = useState<TabType>('doc');
   const [archiveExpanded, setArchiveExpanded] = useState(true);
   const [draftExpanded, setDraftExpanded] = useState(true);
-  const { getProjectArchiveTree, getProjectCodeTree, addFolder, addFileNode, renameNode, removeNode, moveNode, removeNodeByFileId } = useFileTree();
+  const { getProjectArchiveTree, addFolder, renameNode, removeNode, moveNode } = useFileTree();
 
-  // 当前项目的归档/代码树
+  // 当前项目的归档树
   const archiveTree = getProjectArchiveTree(projectId);
-  const codeTree = getProjectCodeTree(projectId);
 
   // ===== 草稿区批量操作 =====
   const [selectedDraftIds, setSelectedDraftIds] = useState<Set<string>>(new Set());
@@ -102,8 +98,7 @@ export default function FilePanel({
     document.addEventListener('mouseup', onMouseUp);
   }, []);
 
-  const currentTree = activeTab === 'doc' ? archiveTree : codeTree;
-  const treeType = activeTab === 'doc' ? 'archive' as const : 'code' as const;
+  const treeType = 'archive' as const;
 
   const handleAddFolder = (parentId: string | null, name: string) => {
     addFolder(parentId, name, treeType, projectId);
@@ -138,29 +133,9 @@ export default function FilePanel({
       {/* Header */}
       <div className="flex items-center justify-between px-4 py-3 border-b border-blue-50">
         {!collapsed && (
-          <div className="flex items-center gap-1">
-            <button
-              onClick={() => setActiveTab('doc')}
-              className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium transition-colors ${
-                activeTab === 'doc'
-                  ? 'bg-blue-50 text-blue-600'
-                  : 'text-gray-400 hover:text-gray-600'
-              }`}
-            >
-              <FileText size={14} />
-              文档
-            </button>
-            <button
-              onClick={() => setActiveTab('code')}
-              className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium transition-colors ${
-                activeTab === 'code'
-                  ? 'bg-blue-50 text-blue-600'
-                  : 'text-gray-400 hover:text-gray-600'
-              }`}
-            >
-              <Code size={14} />
-              代码
-            </button>
+          <div className="flex items-center gap-1.5 px-2.5 py-1.5">
+            <FileText size={14} className="text-blue-600" />
+            <span className="text-xs font-medium text-blue-600">文档</span>
           </div>
         )}
         <button
@@ -176,17 +151,17 @@ export default function FilePanel({
         <div className="flex-1 flex items-center justify-center">
           <div className="flex flex-col items-center gap-2 -rotate-90 whitespace-nowrap">
             <span className="text-xs text-gray-400 font-medium tracking-wider">
-              {activeTab === 'doc' ? '文档' : '代码'}
+              文档
             </span>
             <span className="text-[10px] text-gray-300">
-              ({activeTab === 'doc' ? archiveFiles.length + draftFiles.length : currentTree.length})
+              ({archiveFiles.length + draftFiles.length})
             </span>
           </div>
         </div>
       )}
 
-      {/* 文档 Tab */}
-      {!collapsed && activeTab === 'doc' && (
+      {/* 文档区 */}
+      {!collapsed && (
         <div className="flex-1 flex flex-col min-h-0" ref={panelRef}>
           {/* ===== 归档区 ===== */}
           <div
@@ -345,22 +320,6 @@ export default function FilePanel({
             )}
           </div>
         </div>
-      )}
-
-      {/* 代码 Tab */}
-      {!collapsed && activeTab === 'code' && (
-        <FileTree
-          nodes={codeTree}
-          files={files}
-          onAddFolder={(parentId, name) => addFolder(parentId, name, 'code', projectId)}
-          onUpload={onUpload}
-          onDownload={onDownload}
-          onRename={(nodeId, name) => renameNode(nodeId, name, 'code')}
-          onDelete={(nodeId) => removeNode(nodeId, 'code')}
-          onMoveNode={(nodeId, target) => moveNode(nodeId, target, 'code')}
-          onBatchDownload={() => handleArchiveBatchDownload()}
-          readonly={true}
-        />
       )}
     </aside>
   );

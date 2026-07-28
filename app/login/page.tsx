@@ -3,7 +3,7 @@
 import { useState, FormEvent, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/contexts/AuthContext';
-import { User, Lock, ArrowRight, Zap } from 'lucide-react';
+import { User, Lock, ArrowRight } from 'lucide-react';
 
 export default function LoginPage() {
   const router = useRouter();
@@ -64,12 +64,12 @@ export default function LoginPage() {
           }`}
         >
           {/* Logo + 标题 */}
-          <div className="flex items-center gap-3 mb-6">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-cyan-400 flex items-center justify-center shadow-lg shadow-blue-500/30">
-              <Zap size={20} className="text-white" />
+          <div className="flex items-center gap-0 mb-6">
+            <div className="w-10 h-10 rounded-xl flex items-center justify-center overflow-hidden">
+              <img src="/login-icon-4-clean.png" alt="ceanus" className="w-full h-full object-contain" />
             </div>
-            <span className="text-white/80 text-2xl font-bold tracking-wider uppercase">
-              Oceanus
+            <span className="text-white/80 text-2xl font-bold tracking-wider">
+              ceanus
             </span>
           </div>
 

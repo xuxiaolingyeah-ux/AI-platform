@@ -3,7 +3,7 @@
 import { ReactNode, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import { useAuth } from '@/lib/contexts/AuthContext';
-import { Zap, Bot, Puzzle, LayoutDashboard, ChevronDown, LogOut } from 'lucide-react';
+import { Bot, Puzzle, LayoutDashboard, ChevronDown, LogOut } from 'lucide-react';
 
 const NAV_ITEMS = [
   {
@@ -40,11 +40,11 @@ export default function MainLayout({ children }: { children: ReactNode }) {
       <aside className="w-56 flex-shrink-0 bg-white/60 backdrop-blur-xl border-r border-blue-100/50 flex flex-col h-full">
         {/* Logo */}
         <div className="px-5 py-4">
-          <div className="flex items-center gap-2.5">
-            <div className="flex items-center justify-center w-8 h-8 rounded-xl bg-gradient-to-br from-blue-600 to-blue-500 text-white shadow-lg shadow-blue-500/20">
-              <Zap size={16} />
+          <div className="flex items-center gap-0">
+            <div className="flex items-center justify-center w-8 h-8 rounded-xl overflow-hidden">
+              <img src="/icon.png" alt="ceanus" className="w-full h-full object-contain" />
             </div>
-            <span className="font-bold text-gray-900 tracking-tight text-lg">Oceanus</span>
+            <span className="font-bold text-gray-900 tracking-tight text-lg">ceanus</span>
           </div>
         </div>
 
