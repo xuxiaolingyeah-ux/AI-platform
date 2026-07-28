@@ -49,8 +49,8 @@ export default function ChatMessage({ message, isStreaming, onSaveTempFile }: Ch
         <div
           className={`px-4 py-3 rounded-2xl text-sm ${
             isAgent
-              ? 'bg-white/80 backdrop-blur-sm border border-indigo-100/30 shadow-sm'
-              : 'bg-gradient-to-r from-indigo-500 to-violet-500 text-white shadow-lg shadow-indigo-500/20'
+              ? 'bg-white/80 backdrop-blur-sm border border-blue-100/30 shadow-sm'
+              : 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-lg shadow-blue-500/20'
           }`}
         >
           {isAgent ? (

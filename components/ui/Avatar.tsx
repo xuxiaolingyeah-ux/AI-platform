@@ -13,10 +13,10 @@ const sizeMap = {
 };
 
 const colors = [
-  'bg-gradient-to-br from-indigo-400 to-indigo-600',
-  'bg-gradient-to-br from-violet-400 to-violet-600',
+  'bg-gradient-to-br from-blue-400 to-blue-600',
+  'bg-gradient-to-br from-cyan-400 to-cyan-600',
   'bg-gradient-to-br from-blue-400 to-cyan-600',
-  'bg-gradient-to-br from-purple-400 to-purple-600',
+  'bg-gradient-to-br from-blue-400 to-blue-600',
 ];
 
 function getColor(name: string): string {
@@ -31,7 +31,7 @@ export default function Avatar({ name, size = 'md', isAgent = false }: AvatarPro
   if (isAgent) {
     return (
       <div
-        className={`${sizeMap[size]} rounded-xl bg-gradient-to-br from-indigo-500 via-violet-500 to-purple-600 flex items-center justify-center text-white font-bold shadow-lg shadow-indigo-500/20`}
+        className={`${sizeMap[size]} rounded-xl bg-gradient-to-br from-blue-600 via-blue-500 to-blue-700 flex items-center justify-center text-white font-bold shadow-lg shadow-blue-500/20`}
         title={name}
       >
         AI

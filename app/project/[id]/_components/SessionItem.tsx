@@ -51,7 +51,7 @@ export default function SessionItem({
     <div
       className={`group flex items-center gap-2 px-3 py-2.5 mx-2 rounded-xl cursor-pointer transition-all duration-200 ${
         isActive
-          ? 'bg-gradient-to-r from-indigo-50 to-violet-50 text-indigo-700 shadow-sm'
+          ? 'bg-gradient-to-r from-blue-50 to-cyan-50 text-blue-700 shadow-sm'
           : 'hover:bg-white/60 text-gray-700'
       }`}
       onClick={onClick}
@@ -62,7 +62,7 @@ export default function SessionItem({
         {editing ? (
           <input
             ref={inputRef}
-            className="w-full text-sm bg-white border border-indigo-300 rounded-lg px-2 py-0.5 outline-none focus:ring-1 focus:ring-indigo-400"
+            className="w-full text-sm bg-white border border-blue-300 rounded-lg px-2 py-0.5 outline-none focus:ring-1 focus:ring-blue-400"
             value={editTitle}
             onChange={(e) => setEditTitle(e.target.value)}
             onKeyDown={handleKeyDown}

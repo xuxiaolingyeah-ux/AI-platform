@@ -52,7 +52,7 @@ export default function NewProjectModal({ open, onClose, onCreate }: NewProjectM
             项目描述
           </label>
           <textarea
-            className="w-full px-3.5 py-2.5 text-sm border border-gray-300 rounded-xl transition-colors duration-150 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 resize-none"
+            className="w-full px-3.5 py-2.5 text-sm border border-gray-300 rounded-xl transition-colors duration-150 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-none"
             rows={3}
             placeholder="简单描述这个项目的目标和范围"
             value={description}

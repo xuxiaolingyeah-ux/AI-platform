@@ -37,20 +37,20 @@ export default function MainLayout({ children }: { children: ReactNode }) {
   return (
     <div className="h-full flex">
       {/* ===== 左侧侧边栏 ===== */}
-      <aside className="w-56 flex-shrink-0 bg-white/60 backdrop-blur-xl border-r border-indigo-100/50 flex flex-col h-full">
+      <aside className="w-56 flex-shrink-0 bg-white/60 backdrop-blur-xl border-r border-blue-100/50 flex flex-col h-full">
         {/* Logo */}
         <div className="px-5 py-4">
           <div className="flex items-center gap-2.5">
-            <div className="flex items-center justify-center w-8 h-8 rounded-xl bg-gradient-to-br from-indigo-500 to-violet-500 text-white shadow-lg shadow-indigo-500/20">
+            <div className="flex items-center justify-center w-8 h-8 rounded-xl bg-gradient-to-br from-blue-600 to-blue-500 text-white shadow-lg shadow-blue-500/20">
               <Zap size={16} />
             </div>
-            <span className="font-bold text-gray-900 tracking-tight text-lg">DeepStorm</span>
+            <span className="font-bold text-gray-900 tracking-tight text-lg">Oceanus</span>
           </div>
         </div>
 
         {/* 分隔线 */}
         <div className="px-5 py-2">
-          <div className="h-px bg-gradient-to-r from-indigo-100/50 to-transparent" />
+          <div className="h-px bg-gradient-to-r from-blue-100/50 to-transparent" />
         </div>
 
         {/* 导航 */}
@@ -73,11 +73,11 @@ export default function MainLayout({ children }: { children: ReactNode }) {
                         onClick={() => router.push(item.href)}
                         className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm transition-all duration-200 ${
                           isActive
-                            ? 'bg-indigo-50 text-indigo-600 font-medium shadow-sm'
+                            ? 'bg-blue-50 text-blue-600 font-medium shadow-sm'
                             : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50'
                         }`}
                       >
-                        <item.icon size={17} className={isActive ? 'text-indigo-500' : 'text-gray-400'} />
+                        <item.icon size={17} className={isActive ? 'text-blue-500' : 'text-gray-400'} />
                         {item.label}
                       </button>
                     </li>
@@ -92,13 +92,13 @@ export default function MainLayout({ children }: { children: ReactNode }) {
       {/* ===== 右侧内容区 ===== */}
       <div className="flex-1 flex flex-col min-w-0 h-full overflow-hidden">
         {/* 顶部用户栏（右上角） */}
-        <div className="h-12 flex items-center justify-end px-6 border-b border-indigo-100/30 bg-white/40 backdrop-blur-sm flex-shrink-0">
+        <div className="h-12 flex items-center justify-end px-6 border-b border-blue-100/30 bg-white/40 backdrop-blur-sm flex-shrink-0">
           <div className="relative">
             <button
               onClick={() => setUserMenuOpen(!userMenuOpen)}
               className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm text-gray-600 hover:bg-gray-100 transition-colors"
             >
-              <div className="flex items-center justify-center w-6 h-6 rounded-full bg-gradient-to-br from-indigo-400 to-violet-500 text-white text-[10px] font-semibold">
+              <div className="flex items-center justify-center w-6 h-6 rounded-full bg-gradient-to-br from-blue-500 to-blue-400 text-white text-[10px] font-semibold">
                 {currentUser?.username?.charAt(0).toUpperCase() || 'U'}
               </div>
               <span>{currentUser?.username}</span>

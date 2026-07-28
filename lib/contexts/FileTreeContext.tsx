@@ -5,25 +5,34 @@ import type { FileTreeNode } from '@/lib/types';
 import { generateId } from '@/lib/utils/id';
 
 interface FileTreeContextValue {
-  docTree: FileTreeNode[];
+  /** 归档区文件树（项目级，支持文件夹组织） */
+  archiveTree: FileTreeNode[];
+  /** 代码区文件树 */
   codeTree: FileTreeNode[];
-  addFolder: (parentId: string | null, name: string, treeType: 'doc' | 'code') => void;
-  addFileNode: (parentId: string | null, name: string, fileId: string, treeType: 'doc' | 'code') => void;
-  renameNode: (nodeId: string, newName: string, treeType: 'doc' | 'code') => void;
-  removeNode: (nodeId: string, treeType: 'doc' | 'code') => void;
-  moveNode: (nodeId: string, targetParentId: string | null, treeType: 'doc' | 'code') => boolean;
-  getNodePath: (nodeId: string, treeType: 'doc' | 'code') => string;
+  /** 获取指定项目的归档树节点 */
+  getProjectArchiveTree: (projectId: string) => FileTreeNode[];
+  /** 获取指定项目的代码树节点 */
+  getProjectCodeTree: (projectId: string) => FileTreeNode[];
+  addFolder: (parentId: string | null, name: string, treeType: 'archive' | 'code', projectId: string) => void;
+  addFileNode: (parentId: string | null, name: string, fileId: string, treeType: 'archive' | 'code', projectId: string) => void;
+  renameNode: (nodeId: string, newName: string, treeType: 'archive' | 'code') => void;
+  removeNode: (nodeId: string, treeType: 'archive' | 'code') => void;
+  moveNode: (nodeId: string, targetParentId: string | null, treeType: 'archive' | 'code') => boolean;
+  getNodePath: (nodeId: string, treeType: 'archive' | 'code') => string;
+  /** 清除归档区中属于某个 fileId 的节点 */
+  removeNodeByFileId: (fileId: string, treeType: 'archive' | 'code') => void;
 }
 
 const FileTreeContext = createContext<FileTreeContextValue | null>(null);
 
 function removeNodeFromTree(nodes: FileTreeNode[], nodeId: string): FileTreeNode[] {
-  return nodes
-    .filter((n) => n.id !== nodeId)
-    .map((n) => ({
-      ...n,
-      // 我们不在节点中存储 children，通过 parentId 关联
-    }));
+  const idsToRemove = new Set<string>();
+  const collectIds = (id: string) => {
+    idsToRemove.add(id);
+    nodes.filter((n) => n.parentId === id).forEach((n) => collectIds(n.id));
+  };
+  collectIds(nodeId);
+  return nodes.filter((n) => !idsToRemove.has(n.id));
 }
 
 function renameInTree(nodes: FileTreeNode[], nodeId: string, newName: string): FileTreeNode[] {
@@ -31,68 +40,84 @@ function renameInTree(nodes: FileTreeNode[], nodeId: string, newName: string): F
 }
 
 export function FileTreeProvider({ children }: { children: ReactNode }) {
-  const [docTree, setDocTree] = useState<FileTreeNode[]>([]);
+  const [archiveTree, setArchiveTree] = useState<FileTreeNode[]>([]);
   const [codeTree, setCodeTree] = useState<FileTreeNode[]>([]);
 
+  const getTreeSetter = (treeType: 'archive' | 'code') =>
+    treeType === 'archive' ? setArchiveTree : setCodeTree;
+
+  const getTreeGetter = (treeType: 'archive' | 'code') =>
+    treeType === 'archive' ? archiveTree : codeTree;
+
+  const getProjectArchiveTree = useCallback(
+    (projectId: string) => archiveTree.filter((n) => n.projectId === projectId),
+    [archiveTree]
+  );
+
+  const getProjectCodeTree = useCallback(
+    (projectId: string) => codeTree.filter((n) => n.projectId === projectId),
+    [codeTree]
+  );
+
   const addFolder = useCallback(
-    (parentId: string | null, name: string, treeType: 'doc' | 'code') => {
+    (parentId: string | null, name: string, treeType: 'archive' | 'code', projectId: string) => {
       const newNode: FileTreeNode = {
         id: generateId(),
         name,
         type: 'folder',
         parentId,
+        projectId,
       };
-      const setTree = treeType === 'doc' ? setDocTree : setCodeTree;
-      setTree((prev) => [...prev, newNode]);
+      getTreeSetter(treeType)((prev) => [...prev, newNode]);
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     []
   );
 
   const addFileNode = useCallback(
-    (parentId: string | null, name: string, fileId: string, treeType: 'doc' | 'code') => {
+    (parentId: string | null, name: string, fileId: string, treeType: 'archive' | 'code', projectId: string) => {
       const newNode: FileTreeNode = {
         id: generateId(),
         name,
         type: 'file',
         parentId,
         fileId,
+        projectId,
       };
-      const setTree = treeType === 'doc' ? setDocTree : setCodeTree;
-      setTree((prev) => [...prev, newNode]);
+      getTreeSetter(treeType)((prev) => [...prev, newNode]);
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     []
   );
 
   const renameNode = useCallback(
-    (nodeId: string, newName: string, treeType: 'doc' | 'code') => {
-      const setTree = treeType === 'doc' ? setDocTree : setCodeTree;
-      setTree((prev) => renameInTree(prev, nodeId, newName));
+    (nodeId: string, newName: string, treeType: 'archive' | 'code') => {
+      getTreeSetter(treeType)((prev) => renameInTree(prev, nodeId, newName));
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     []
   );
 
   const removeNode = useCallback(
-    (nodeId: string, treeType: 'doc' | 'code') => {
-      const setTree = treeType === 'doc' ? setDocTree : setCodeTree;
-      setTree((prev) => {
-        // 删除节点及其所有子节点
-        const idsToRemove = new Set<string>();
-        const collectIds = (id: string) => {
-          idsToRemove.add(id);
-          prev.filter((n) => n.parentId === id).forEach((n) => collectIds(n.id));
-        };
-        collectIds(nodeId);
-        return prev.filter((n) => !idsToRemove.has(n.id));
-      });
+    (nodeId: string, treeType: 'archive' | 'code') => {
+      getTreeSetter(treeType)((prev) => removeNodeFromTree(prev, nodeId));
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
+  );
+
+  const removeNodeByFileId = useCallback(
+    (fileId: string, treeType: 'archive' | 'code') => {
+      getTreeSetter(treeType)((prev) => prev.filter((n) => n.fileId !== fileId));
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     []
   );
 
   const moveNode = useCallback(
-    (nodeId: string, targetParentId: string | null, treeType: 'doc' | 'code'): boolean => {
-      const setTree = treeType === 'doc' ? setDocTree : setCodeTree;
+    (nodeId: string, targetParentId: string | null, treeType: 'archive' | 'code'): boolean => {
+      const setTree = getTreeSetter(treeType);
 
-      // 校验：不能将自己移入自己或自己的子文件夹
       if (targetParentId) {
         const isDescendant = (ancestorId: string, checkId: string, nodes: FileTreeNode[]): boolean => {
           if (ancestorId === checkId) return true;
@@ -116,12 +141,13 @@ export function FileTreeProvider({ children }: { children: ReactNode }) {
       );
       return true;
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     []
   );
 
   const getNodePath = useCallback(
-    (nodeId: string, treeType: 'doc' | 'code'): string => {
-      const tree = treeType === 'doc' ? docTree : codeTree;
+    (nodeId: string, treeType: 'archive' | 'code'): string => {
+      const tree = getTreeGetter(treeType);
       const parts: string[] = [];
       let current = tree.find((n) => n.id === nodeId);
       while (current) {
@@ -130,12 +156,24 @@ export function FileTreeProvider({ children }: { children: ReactNode }) {
       }
       return parts.join('/');
     },
-    [docTree, codeTree]
+    [archiveTree, codeTree]
   );
 
   return (
     <FileTreeContext.Provider
-      value={{ docTree, codeTree, addFolder, addFileNode, renameNode, removeNode, moveNode, getNodePath }}
+      value={{
+        archiveTree,
+        codeTree,
+        getProjectArchiveTree,
+        getProjectCodeTree,
+        addFolder,
+        addFileNode,
+        renameNode,
+        removeNode,
+        moveNode,
+        getNodePath,
+        removeNodeByFileId,
+      }}
     >
       {children}
     </FileTreeContext.Provider>

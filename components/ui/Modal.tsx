@@ -43,8 +43,8 @@ export default function Modal({ open, onClose, title, children, width = 'max-w-l
         if (e.target === overlayRef.current) onClose();
       }}
     >
-      <div className={`${width} w-full mx-4 bg-white/90 backdrop-blur-xl border border-indigo-100/50 rounded-2xl shadow-2xl shadow-indigo-500/10`}>
-        <div className="flex items-center justify-between px-6 py-4 border-b border-indigo-50">
+      <div className={`${width} w-full mx-4 bg-white/90 backdrop-blur-xl border border-blue-100/50 rounded-2xl shadow-2xl shadow-blue-500/10`}>
+        <div className="flex items-center justify-between px-6 py-4 border-b border-blue-50">
           <h3 className="text-lg font-semibold text-gray-900">{title}</h3>
           <button
             onClick={onClose}

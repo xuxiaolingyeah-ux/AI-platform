@@ -1,9 +1,9 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
-import type { Message } from '@/lib/types';
+import { useEffect, useRef } from 'react';
+import type { Message, ProjectFile } from '@/lib/types';
 import ChatMessage from './ChatMessage';
-import ChatInput, { type AttachedFile } from './ChatInput';
+import ChatInput, { type AttachedFile, type ReferencedDoc } from './ChatInput';
 import WelcomeMessage from './WelcomeMessage';
 
 interface ChatAreaProps {
@@ -12,8 +12,10 @@ interface ChatAreaProps {
   isStreaming: boolean;
   sessionAgentConfirmed: boolean;
   onConfirmAgent: (agentId: string) => void;
-  onSend: (content: string, files: AttachedFile[]) => void;
+  onSend: (content: string, files: AttachedFile[], referencedDocs?: ReferencedDoc[]) => void;
   onSaveTempFile: (messageId: string) => void;
+  /** 可引用的文档（归档区 + 草稿区） */
+  availableDocs: ProjectFile[];
 }
 
 export default function ChatArea({
@@ -24,6 +26,7 @@ export default function ChatArea({
   onConfirmAgent,
   onSend,
   onSaveTempFile,
+  availableDocs,
 }: ChatAreaProps) {
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -72,6 +75,7 @@ export default function ChatArea({
         <ChatInput
           onSend={onSend}
           disabled={isStreaming}
+          availableDocs={availableDocs}
         />
       )}
     </div>

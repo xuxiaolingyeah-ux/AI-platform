@@ -36,10 +36,10 @@ export default function AgentsPage() {
             <div
               key={agent.id}
               onClick={() => router.push(`/agents/${agent.id}`)}
-              className="group bg-white/70 backdrop-blur-sm border border-indigo-100/50 rounded-2xl p-6 hover:shadow-xl hover:shadow-indigo-500/5 hover:border-indigo-200 transition-all duration-300 cursor-pointer"
+              className="group bg-white/70 backdrop-blur-sm border border-blue-100/50 rounded-2xl p-6 hover:shadow-xl hover:shadow-blue-500/5 hover:border-blue-200 transition-all duration-300 cursor-pointer"
             >
               <div className="flex items-start gap-4">
-                <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500 to-violet-500 flex items-center justify-center shadow-lg shadow-indigo-500/20">
+                <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-blue-600 to-blue-500 flex items-center justify-center shadow-lg shadow-blue-500/20">
                   <Bot size={24} className="text-white" />
                 </div>
                 <div className="flex-1 min-w-0">
@@ -48,13 +48,13 @@ export default function AgentsPage() {
                 </div>
               </div>
 
-              <div className="mt-4 pt-4 border-t border-indigo-50 flex items-center justify-between">
+              <div className="mt-4 pt-4 border-t border-blue-50 flex items-center justify-between">
                 <div className="flex items-center gap-3 text-xs text-gray-400">
                   <span>{agent.createdBy}</span>
                   <span>·</span>
                   <span>{formatRelativeTime(agent.updatedAt)}</span>
                 </div>
-                <ArrowRight size={16} className="text-gray-300 group-hover:text-indigo-500 group-hover:translate-x-0.5 transition-all" />
+                <ArrowRight size={16} className="text-gray-300 group-hover:text-blue-500 group-hover:translate-x-0.5 transition-all" />
               </div>
             </div>
           ))}

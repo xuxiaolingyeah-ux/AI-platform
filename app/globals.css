@@ -4,14 +4,29 @@
 @theme inline {
   --color-background: #ffffff;
   --color-foreground: #171717;
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'SF Mono', 'Fira Code', 'Fira Mono', monospace;
 }
 
 body {
-  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 50%, #eef2ff 100%);
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 50%, #eff6ff 100%);
   color: #171717;
   font-family: var(--font-sans, system-ui, -apple-system, sans-serif);
+}
+
+/* 覆盖 Chrome 自动填充的背景色 */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0px 1000px rgba(15, 23, 42, 0.5) inset !important;
+  -webkit-text-fill-color: white !important;
+  transition: background-color 5000s ease-in-out 0s;
 }
 
 /* 自定义滚动条 */
@@ -23,11 +38,11 @@ body {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: #c7d2fe;
+  background: #bfdbfe;
   border-radius: 2px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #a5b4fc;
+  background: #93c5fd;
 }
 
 /* 打字机光标动画 */
@@ -38,7 +53,7 @@ body {
 .typing-cursor::after {
   content: '|';
   animation: blink 0.8s infinite;
-  color: #818cf8;
+  color: #60a5fa;
   font-weight: 700;
 }
 
@@ -64,21 +79,21 @@ body {
 .glass {
   background: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(16px);
-  border: 1px solid rgba(99, 102, 241, 0.08);
+  border: 1px solid rgba(59, 130, 246, 0.08);
 }
 
 .glass-strong {
   background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(20px);
-  border: 1px solid rgba(99, 102, 241, 0.12);
+  border: 1px solid rgba(59, 130, 246, 0.12);
 }
 
 /* 发光按钮 */
 .btn-glow {
-  box-shadow: 0 0 20px rgba(99, 102, 241, 0.25), 0 4px 12px rgba(99, 102, 241, 0.15);
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.25), 0 4px 12px rgba(59, 130, 246, 0.15);
 }
 .btn-glow:hover {
-  box-shadow: 0 0 30px rgba(99, 102, 241, 0.4), 0 6px 16px rgba(99, 102, 241, 0.25);
+  box-shadow: 0 0 30px rgba(59, 130, 246, 0.4), 0 6px 16px rgba(59, 130, 246, 0.25);
 }
 
 /* 粒子漂浮动画 */

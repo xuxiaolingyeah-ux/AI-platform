@@ -35,7 +35,7 @@ export default function SkillDetailPage() {
           <p className="text-sm text-gray-500 mt-1">未找到该 Skill 的信息</p>
           <button
             onClick={() => router.push('/skills')}
-            className="mt-4 inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-xl bg-indigo-50 text-indigo-600 hover:bg-indigo-100 transition-colors"
+            className="mt-4 inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-xl bg-blue-50 text-blue-600 hover:bg-blue-100 transition-colors"
           >
             <ArrowLeft size={16} />
             返回 Skill 市场
@@ -58,10 +58,10 @@ export default function SkillDetailPage() {
         </button>
 
         {/* 基本信息卡片 */}
-        <div className="bg-white/70 backdrop-blur-sm border border-indigo-100/50 rounded-2xl p-6 mb-6">
+        <div className="bg-white/70 backdrop-blur-sm border border-blue-100/50 rounded-2xl p-6 mb-6">
           <div className="flex items-start gap-4">
-            <div className="flex-shrink-0 w-14 h-14 rounded-xl bg-gradient-to-br from-indigo-50 to-violet-50 flex items-center justify-center border border-indigo-100">
-              <Puzzle size={28} className="text-indigo-500" />
+            <div className="flex-shrink-0 w-14 h-14 rounded-xl bg-gradient-to-br from-blue-50 to-cyan-50 flex items-center justify-center border border-blue-100">
+              <Puzzle size={28} className="text-blue-500" />
             </div>
             <div className="flex-1">
               <h1 className="text-2xl font-bold text-gray-900">{skill.name}</h1>
@@ -75,7 +75,7 @@ export default function SkillDetailPage() {
         </div>
 
         {/* 具体内容 */}
-        <div className="bg-white/70 backdrop-blur-sm border border-indigo-100/50 rounded-2xl p-6">
+        <div className="bg-white/70 backdrop-blur-sm border border-blue-100/50 rounded-2xl p-6">
           <h3 className="font-semibold text-gray-900 mb-4 text-lg">具体内容</h3>
           <div className="relative max-h-[420px] overflow-y-auto rounded-xl border border-gray-100 bg-gray-50/50 p-4 scrollbar-thin">
             <div className="prose prose-sm prose-gray max-w-none">

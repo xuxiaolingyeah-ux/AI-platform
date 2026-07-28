@@ -116,8 +116,8 @@ export function ChatProvider({ children }: { children: ReactNode }) {
       const sessionMsgs = allMsgs.filter((m) => m.sessionId === sessionId);
       const userMsgCount = sessionMsgs.filter((m) => m.role === 'user').length;
 
-      // 如果是 pending 会话的首条消息，正式创建（锁定 agentId）
-      if (sessionId.startsWith('pending-')) {
+      // 如果是 pending 会话且尚未正式创建，则创建
+      if (sessionId.startsWith('pending-') && !sessions.some((s) => s.id === sessionId)) {
         const title = content.slice(0, 20) + (content.length > 20 ? '...' : '');
         const agentId = pendingSessionAgentId || 'agent-product-expert';
         const session: Session = {

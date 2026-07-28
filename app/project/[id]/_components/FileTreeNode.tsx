@@ -121,9 +121,9 @@ export default function FileTreeNode({
           isDragging ? 'opacity-40' : ''
         } ${
           dragOver
-            ? 'bg-indigo-100 border-2 border-indigo-400 border-dashed'
+            ? 'bg-blue-100 border-2 border-blue-400 border-dashed'
             : isSelected
-              ? 'bg-indigo-50 text-indigo-700'
+              ? 'bg-blue-50 text-blue-700'
               : 'text-gray-600 hover:bg-gray-50'
         }`}
         style={{ paddingLeft: `${8 + depth * 16}px` }}
@@ -148,9 +148,9 @@ export default function FileTreeNode({
         {/* 图标 */}
         {isFolder ? (
           expanded ? (
-            <FolderOpen size={15} className={`flex-shrink-0 ${dragOver ? 'text-indigo-500' : 'text-indigo-400'}`} />
+            <FolderOpen size={15} className={`flex-shrink-0 ${dragOver ? 'text-blue-500' : 'text-blue-400'}`} />
           ) : (
-            <Folder size={15} className={`flex-shrink-0 ${dragOver ? 'text-indigo-500' : 'text-indigo-400'}`} />
+            <Folder size={15} className={`flex-shrink-0 ${dragOver ? 'text-blue-500' : 'text-blue-400'}`} />
           )
         ) : (
           <FileText size={15} className="flex-shrink-0 text-gray-400" />
@@ -169,7 +169,7 @@ export default function FileTreeNode({
                 setEditName(node.name);
               }
             }}
-            className="flex-1 text-xs px-1 py-0.5 border border-indigo-300 rounded outline-none focus:ring-1 focus:ring-indigo-300"
+            className="flex-1 text-xs px-1 py-0.5 border border-blue-300 rounded outline-none focus:ring-1 focus:ring-blue-300"
             autoFocus
             onClick={(e) => e.stopPropagation()}
           />
@@ -179,7 +179,7 @@ export default function FileTreeNode({
 
         {/* 拖拽提示 */}
         {dragOver && isFolder && (
-          <span className="text-[10px] text-indigo-500 font-medium">释放到此处</span>
+          <span className="text-[10px] text-blue-500 font-medium">释放到此处</span>
         )}
 
         {/* 操作菜单（非只读模式） */}

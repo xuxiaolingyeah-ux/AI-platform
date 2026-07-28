@@ -14,13 +14,13 @@ interface ProjectCardProps {
 export default function ProjectCard({ project, onClick, onEdit, onDelete }: ProjectCardProps) {
   return (
     <div
-      className="group bg-white/70 backdrop-blur-sm border border-indigo-100/50 rounded-2xl p-5 hover:shadow-xl hover:shadow-indigo-500/5 hover:border-indigo-200 transition-all duration-300 cursor-pointer"
+      className="group bg-white/70 backdrop-blur-sm border border-blue-100/50 rounded-2xl p-5 hover:shadow-xl hover:shadow-blue-500/5 hover:border-blue-200 transition-all duration-300 cursor-pointer"
       onClick={onClick}
     >
       <div className="flex items-start justify-between">
         <div className="flex items-start gap-3 min-w-0">
-          <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-50 to-violet-50 flex items-center justify-center">
-            <FolderOpen size={20} className="text-indigo-500" />
+          <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-gradient-to-br from-blue-50 to-cyan-50 flex items-center justify-center">
+            <FolderOpen size={20} className="text-blue-500" />
           </div>
           <div className="min-w-0">
             <h3 className="font-semibold text-gray-900 truncate">{project.name}</h3>
@@ -36,7 +36,7 @@ export default function ProjectCard({ project, onClick, onEdit, onDelete }: Proj
               e.stopPropagation();
               onEdit();
             }}
-            className="flex-shrink-0 p-1.5 rounded-lg text-gray-300 hover:text-indigo-500 hover:bg-indigo-50 transition-all duration-200"
+            className="flex-shrink-0 p-1.5 rounded-lg text-gray-300 hover:text-blue-500 hover:bg-blue-50 transition-all duration-200"
             aria-label="编辑项目"
           >
             <Pencil size={16} />
@@ -54,7 +54,7 @@ export default function ProjectCard({ project, onClick, onEdit, onDelete }: Proj
         </div>
       </div>
 
-      <div className="mt-4 pt-3 border-t border-indigo-50">
+      <div className="mt-4 pt-3 border-t border-blue-50">
         <span className="text-xs text-gray-400">
           更新于 {formatRelativeTime(project.updatedAt)}
         </span>

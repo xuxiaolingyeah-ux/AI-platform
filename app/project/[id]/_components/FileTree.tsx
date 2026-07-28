@@ -16,6 +16,8 @@ interface FileTreeProps {
   onMoveNode: (nodeId: string, targetParentId: string | null) => boolean;
   onBatchDownload: () => void;
   readonly?: boolean;
+  /** 紧凑模式：去掉工具栏，用于嵌套在归档区中 */
+  compact?: boolean;
 }
 
 export default function FileTree({
@@ -29,6 +31,7 @@ export default function FileTree({
   onMoveNode,
   onBatchDownload,
   readonly = false,
+  compact = false,
 }: FileTreeProps) {
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [addingFolder, setAddingFolder] = useState(false);
@@ -60,10 +63,10 @@ export default function FileTree({
   };
 
   return (
-    <div className="flex flex-col h-full">
-      {/* 工具栏 */}
-      {!readonly && (
-        <div className="flex items-center gap-1 px-3 py-2 border-b border-indigo-50">
+    <div className={`flex flex-col ${compact ? '' : 'h-full'}`}>
+      {/* 工具栏 — compact 模式下隐藏 */}
+      {!readonly && !compact && (
+        <div className="flex items-center gap-1 px-3 py-2 border-b border-blue-50">
           {addingFolder ? (
             <div className="flex items-center gap-1 flex-1">
               <input
@@ -74,12 +77,12 @@ export default function FileTree({
                   if (e.key === 'Escape') { setAddingFolder(false); setNewFolderName(''); }
                 }}
                 placeholder="文件夹名称..."
-                className="flex-1 text-xs px-2 py-1 border border-indigo-200 rounded outline-none focus:ring-1 focus:ring-indigo-300"
+                className="flex-1 text-xs px-2 py-1 border border-blue-200 rounded outline-none focus:ring-1 focus:ring-blue-300"
                 autoFocus
               />
               <button
                 onClick={handleAddFolder}
-                className="px-2 py-1 text-xs bg-indigo-500 text-white rounded hover:bg-indigo-600"
+                className="px-2 py-1 text-xs bg-blue-500 text-white rounded hover:bg-blue-600"
               >
                 确定
               </button>
@@ -94,7 +97,7 @@ export default function FileTree({
             <>
               <button
                 onClick={() => setAddingFolder(true)}
-                className="flex items-center gap-1 px-2 py-1 text-xs text-gray-500 hover:text-indigo-600 hover:bg-indigo-50 rounded transition-colors"
+                className="flex items-center gap-1 px-2 py-1 text-xs text-gray-500 hover:text-blue-600 hover:bg-blue-50 rounded transition-colors"
                 title="新建文件夹"
               >
                 <FolderPlus size={14} />
@@ -102,7 +105,7 @@ export default function FileTree({
               </button>
               <button
                 onClick={handleUploadClick}
-                className="flex items-center gap-1 px-2 py-1 text-xs text-gray-500 hover:text-indigo-600 hover:bg-indigo-50 rounded transition-colors"
+                className="flex items-center gap-1 px-2 py-1 text-xs text-gray-500 hover:text-blue-600 hover:bg-blue-50 rounded transition-colors"
                 title="上传文件"
               >
                 <Upload size={14} />
@@ -112,7 +115,7 @@ export default function FileTree({
               {files.length > 0 && (
                 <button
                   onClick={onBatchDownload}
-                  className="flex items-center gap-1 px-2 py-1 text-xs text-gray-500 hover:text-indigo-600 hover:bg-indigo-50 rounded transition-colors"
+                  className="flex items-center gap-1 px-2 py-1 text-xs text-gray-500 hover:text-blue-600 hover:bg-blue-50 rounded transition-colors"
                   title="下载全部"
                 >
                   <Download size={14} />

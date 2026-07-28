@@ -38,7 +38,7 @@ export default function AgentDetailPage() {
           <p className="text-sm text-gray-500 mt-1">未找到该专家的信息</p>
           <button
             onClick={() => router.push('/agents')}
-            className="mt-4 inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-xl bg-indigo-50 text-indigo-600 hover:bg-indigo-100 transition-colors"
+            className="mt-4 inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-xl bg-blue-50 text-blue-600 hover:bg-blue-100 transition-colors"
           >
             <ArrowLeft size={16} />
             返回专家市场
@@ -61,9 +61,9 @@ export default function AgentDetailPage() {
         </button>
 
         {/* 基本信息卡片 */}
-        <div className="bg-white/70 backdrop-blur-sm border border-indigo-100/50 rounded-2xl p-6 mb-6">
+        <div className="bg-white/70 backdrop-blur-sm border border-blue-100/50 rounded-2xl p-6 mb-6">
           <div className="flex items-start gap-4">
-            <div className="flex-shrink-0 w-14 h-14 rounded-xl bg-gradient-to-br from-indigo-500 to-violet-500 flex items-center justify-center shadow-lg shadow-indigo-500/20">
+            <div className="flex-shrink-0 w-14 h-14 rounded-xl bg-gradient-to-br from-blue-600 to-blue-500 flex items-center justify-center shadow-lg shadow-blue-500/20">
               <Bot size={28} className="text-white" />
             </div>
             <div className="flex-1">
@@ -78,18 +78,18 @@ export default function AgentDetailPage() {
         </div>
 
         {/* 模型配置 */}
-        <div className="bg-white/70 backdrop-blur-sm border border-indigo-100/50 rounded-2xl p-6 mb-6">
+        <div className="bg-white/70 backdrop-blur-sm border border-blue-100/50 rounded-2xl p-6 mb-6">
           <div className="flex items-center gap-2 mb-3">
-            <Cpu size={18} className="text-indigo-500" />
+            <Cpu size={18} className="text-blue-500" />
             <h3 className="font-semibold text-gray-900">模型配置</h3>
           </div>
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-indigo-50 rounded-lg text-sm text-indigo-600 font-medium">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-blue-50 rounded-lg text-sm text-blue-600 font-medium">
             {agent.modelConfig}
           </div>
         </div>
 
         {/* 角色能力描述 */}
-        <div className="bg-white/70 backdrop-blur-sm border border-indigo-100/50 rounded-2xl p-6 mb-6">
+        <div className="bg-white/70 backdrop-blur-sm border border-blue-100/50 rounded-2xl p-6 mb-6">
           <h3 className="font-semibold text-gray-900 mb-4 text-lg">角色能力描述</h3>
           <div className="relative max-h-[420px] overflow-y-auto rounded-xl border border-gray-100 bg-gray-50/50 p-4 scrollbar-thin">
             <div className="prose prose-sm prose-gray max-w-none">
@@ -100,9 +100,9 @@ export default function AgentDetailPage() {
         </div>
 
         {/* 关联 Skill */}
-        <div className="bg-white/70 backdrop-blur-sm border border-indigo-100/50 rounded-2xl p-6">
+        <div className="bg-white/70 backdrop-blur-sm border border-blue-100/50 rounded-2xl p-6">
           <div className="flex items-center gap-2 mb-4">
-            <Puzzle size={18} className="text-indigo-500" />
+            <Puzzle size={18} className="text-blue-500" />
             <h3 className="font-semibold text-gray-900 text-lg">关联 Skill</h3>
             <span className="text-xs text-gray-400">({relatedSkills.length})</span>
           </div>
@@ -116,8 +116,8 @@ export default function AgentDetailPage() {
                   key={skill.id}
                   className="flex items-start gap-3 p-4 rounded-xl bg-gray-50/80 border border-gray-100"
                 >
-                  <div className="flex-shrink-0 w-9 h-9 rounded-lg bg-indigo-100 flex items-center justify-center">
-                    <Puzzle size={16} className="text-indigo-500" />
+                  <div className="flex-shrink-0 w-9 h-9 rounded-lg bg-blue-100 flex items-center justify-center">
+                    <Puzzle size={16} className="text-blue-500" />
                   </div>
                   <div className="flex-1 min-w-0">
                     <h4 className="text-sm font-medium text-gray-900">{skill.name}</h4>

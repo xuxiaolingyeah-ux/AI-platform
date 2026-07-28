@@ -44,7 +44,7 @@ export const MOCK_SKILLS: Skill[] = [
 - 待确认问题清单
 - 需求优先级建议
 `,
-    createdBy: 'DeepStorm 团队',
+    createdBy: 'Oceanus 团队',
     updatedAt: '2025-07-18T10:00:00Z',
   },
   {
@@ -81,7 +81,7 @@ export const MOCK_SKILLS: Skill[] = [
 - 推荐方案详细说明
 - 风险清单及缓解建议
 `,
-    createdBy: 'DeepStorm 团队',
+    createdBy: 'Oceanus 团队',
     updatedAt: '2025-07-18T10:00:00Z',
   },
   {
@@ -103,7 +103,7 @@ export const MOCK_SKILLS: Skill[] = [
 
 ### 设计规范
 
-- 色彩体系：使用 DeepStorm 品牌色（indigo/violet）
+- 色彩体系：使用 Oceanus 品牌色（blue/cyan）
 - 组件风格：圆角卡片、柔和阴影、流畅过渡
 - 字体层级：标题 > 正文 > 辅助文字
 - 间距系统：4px 基础单位
@@ -120,7 +120,7 @@ export const MOCK_SKILLS: Skill[] = [
 - 页面结构说明
 - 交互点清单
 `,
-    createdBy: 'DeepStorm 团队',
+    createdBy: 'Oceanus 团队',
     updatedAt: '2025-07-19T10:00:00Z',
   },
   {
@@ -157,7 +157,7 @@ export const MOCK_SKILLS: Skill[] = [
 - 功能优先级矩阵
 - 验收清单
 `,
-    createdBy: 'DeepStorm 团队',
+    createdBy: 'Oceanus 团队',
     updatedAt: '2025-07-19T10:00:00Z',
   },
   {
@@ -202,7 +202,7 @@ export const MOCK_SKILLS: Skill[] = [
 - Jira 任务同步确认
 - 开发排期建议
 `,
-    createdBy: 'DeepStorm 团队',
+    createdBy: 'Oceanus 团队',
     updatedAt: '2025-07-20T10:00:00Z',
   },
   {
@@ -241,7 +241,7 @@ export const MOCK_SKILLS: Skill[] = [
 - 测试覆盖矩阵
 - 回归测试范围建议
 `,
-    createdBy: 'DeepStorm 团队',
+    createdBy: 'Oceanus 团队',
     updatedAt: '2025-07-20T10:00:00Z',
   },
 ];

@@ -120,6 +120,7 @@ export interface FileTreeNode {
   type: 'file' | 'folder';
   parentId: string | null;   // null = 根目录
   fileId?: string;           // 如果是文件节点，关联 ProjectFile.id
+  projectId: string;         // 所属项目 ID，用于隔离不同项目的文件树
 }
 
 // ============================================================

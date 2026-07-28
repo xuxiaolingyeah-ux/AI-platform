@@ -12,6 +12,10 @@ interface FileState {
   removeFile: (id: string) => void;
   updateFile: (id: string, updates: Partial<ProjectFile>) => void;
   getProjectFiles: (projectId: string) => ProjectFile[];
+  getArchiveFiles: (projectId: string) => ProjectFile[];
+  getDraftFiles: (projectId: string, sessionId: string) => ProjectFile[];
+  archiveFile: (fileId: string) => ProjectFile | null;
+  removeSessionDrafts: (sessionId: string) => void;
   toggleGithubSynced: (fileIds: string[]) => void;
   saveTempFile: (projectId: string, sessionId: string, name: string, type: string) => ProjectFile;
 }
@@ -45,6 +49,48 @@ export function FileProvider({ children }: { children: ReactNode }) {
   const getProjectFiles = useCallback(
     (projectId: string) => files.filter((f) => f.projectId === projectId),
     [files]
+  );
+
+  /** 归档区：sessionId 为空的文件（项目级共享） */
+  const getArchiveFiles = useCallback(
+    (projectId: string) => files.filter((f) => f.projectId === projectId && !f.sessionId),
+    [files]
+  );
+
+  /** 草稿区：属于指定会话的文件 */
+  const getDraftFiles = useCallback(
+    (projectId: string, sessionId: string) =>
+      files.filter((f) => f.projectId === projectId && f.sessionId === sessionId),
+    [files]
+  );
+
+  /** 将草稿文件归档：复制一份到归档区（新 ID、sessionId 为空），原草稿保留 */
+  const archiveFile = useCallback(
+    (fileId: string): ProjectFile | null => {
+      let newFile: ProjectFile | null = null;
+      setFiles((prev) => {
+        const source = prev.find((f) => f.id === fileId);
+        if (!source) return prev;
+        newFile = {
+          ...source,
+          id: generateId(),
+          sessionId: undefined,
+          githubSynced: false,
+          createdAt: nowISO(),
+        };
+        return [newFile, ...prev];
+      });
+      return newFile;
+    },
+    [setFiles]
+  );
+
+  /** 删除会话时清理其草稿文件 */
+  const removeSessionDrafts = useCallback(
+    (sessionId: string) => {
+      setFiles((prev) => prev.filter((f) => f.sessionId !== sessionId));
+    },
+    [setFiles]
   );
 
   const toggleGithubSynced = useCallback(
@@ -84,6 +130,10 @@ export function FileProvider({ children }: { children: ReactNode }) {
         removeFile,
         updateFile,
         getProjectFiles,
+        getArchiveFiles,
+        getDraftFiles,
+        archiveFile,
+        removeSessionDrafts,
         toggleGithubSynced,
         saveTempFile,
       }}

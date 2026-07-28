@@ -21,7 +21,7 @@ export default function ProjectTopBar({ projectName }: ProjectTopBarProps) {
   };
 
   return (
-    <header className="h-12 glass border-b border-indigo-100/30 flex items-center justify-between px-4 flex-shrink-0">
+    <header className="h-12 glass border-b border-blue-100/30 flex items-center justify-between px-4 flex-shrink-0">
       <div className="flex items-center gap-3">
         <button
           onClick={() => router.push('/workspace')}
@@ -31,7 +31,7 @@ export default function ProjectTopBar({ projectName }: ProjectTopBarProps) {
           <ArrowLeft size={16} />
           <span className="hidden sm:inline">返回工作台</span>
         </button>
-        <div className="w-px h-5 bg-indigo-100" />
+        <div className="w-px h-5 bg-blue-100" />
         <h1 className="font-semibold text-gray-900 text-sm truncate max-w-[300px]">
           {projectName}
         </h1>
@@ -42,7 +42,7 @@ export default function ProjectTopBar({ projectName }: ProjectTopBarProps) {
           onClick={() => setUserMenuOpen(!userMenuOpen)}
           className="flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-sm text-gray-600 hover:bg-gray-100 transition-colors"
         >
-          <div className="flex items-center justify-center w-6 h-6 rounded-full bg-gradient-to-br from-indigo-400 to-violet-500 text-white text-[10px] font-semibold">
+          <div className="flex items-center justify-center w-6 h-6 rounded-full bg-gradient-to-br from-blue-500 to-blue-400 text-white text-[10px] font-semibold">
             {currentUser?.username?.charAt(0).toUpperCase() || 'U'}
           </div>
           <span className="hidden sm:inline">{currentUser?.username}</span>

@@ -73,7 +73,7 @@ PRD 评审通过后，你会：
       'skill-testcase-generate',
     ],
     modelConfig: 'deepseek-v4-pro',
-    createdBy: 'DeepStorm 团队',
+    createdBy: 'Oceanus 团队',
     updatedAt: '2025-07-20T10:00:00Z',
   },
 ];
